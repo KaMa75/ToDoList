@@ -1,0 +1,221 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Lato', 'Arial', sans-serif;
+}
+
+.wrapper {
+    margin: 0 auto;
+    width: 640px;
+    padding: 20px;
+}
+
+.clear::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+hr {
+    border: 1px solid #333079;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.hidden {
+    display: none;
+}
+
+.btn {
+    cursor: pointer;
+}
+
+/* ------------ Header ------------ */
+
+header .wrapper {
+    background-color: #333079;
+    color: #fff;
+    border-radius: 15px 15px 0 0;
+    margin-top: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .add-task-btn {
+    display: flex;
+    align-items: center;
+}
+
+header .add-btn {
+    width: 30px;
+    height: 30px;
+    background-image: url("../img/plus_blue.png");
+    background-repeat: no-repeat;
+    background-position: center; 
+    margin-right: 10px;
+}
+
+header .add-task-btn:hover .add-btn {
+    background-image: url("../img/plus.png");
+}
+
+header p {
+    font-size: 1.2em;
+}
+
+/* ------------ Add-task-box section ------------ */
+
+.add-task-box{
+    background-color: #d2d1e8;
+    border-left: 2px solid #333079;
+    border-right: 2px solid #333079;
+}
+
+.add-task-box .content-box {
+    width: 70%;
+    float: left;
+}
+
+.add-task-box .btns-box {
+    width: 30%;
+    float: left;
+}
+
+.add-task-box select,
+.add-task-box textarea {
+    width: 100%;
+    border: 1px solid #333079;    
+    outline-color: #333079;
+    padding: 10px;
+    color: #444;
+    display: block;
+}
+
+.add-task-box textarea {
+    resize: none;
+}
+
+.add-task-box select option {
+    padding: 3px 0;
+}
+
+/* ------------ List-box section ------------ */
+
+section {
+    color: #444;
+}
+
+.list-box {
+    border: 2px solid #333079;
+    border-radius: 0 0 15px 15px;
+}
+
+.list-box .task-list {
+    list-style: none;
+}
+
+.list-box .task-list li{
+    width: 100%;
+}
+
+.list-box .task-list hr {
+    border: 1px solid rgba(132, 130, 192, 0.35);
+}
+
+.list-box .task-list li:last-of-type hr {
+    border: 1px solid #333079;
+}
+
+.task-priority {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%; 
+    margin-right: 10px;
+    float: left;
+}
+
+.list-box .task-list li p {
+    max-width: 506px;
+    float: left;
+}
+
+.very-high-priority{
+    border: 2px solid #9B2E4F;    
+    background-color: rgba(155, 46, 79, 0.15);
+}
+
+.high-priority{
+    border: 2px solid #333079;    
+    background-color: rgba(51, 48, 121, 0.15);
+}
+
+.normal-priority {
+    border: 2px solid #5F9A2E;    
+    background-color: rgba(95, 154, 46, 0.15);
+}
+
+.low-priority {
+    border: 2px solid #AD9033;    
+    background-color: rgba(173, 144, 51, 0.15);
+}
+
+.very-low-priority {
+    border: 2px solid #b0b0b0;    
+    background-color: rgba(176, 176, 176, 0.15);
+}
+
+.done {
+    color: #31af91;
+}
+
+.add-task-box .btn,
+.list-box .btn {
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    margin-left: 10px;
+    float: right;
+}
+
+.add-task-box .delete-btn,
+.list-box .task-list .delete-btn,
+.list-box .remove-complete-btn {
+    background-image: url("../img/cancel.png");
+}
+
+.add-task-box .delete-btn:hover,
+.list-box .task-list .delete-btn:hover,
+.list-box .remove-complete-btn:hover {
+    background-image: url("../img/cancel_hover.png");
+}
+
+.add-task-box .complete-btn,
+.list-box .task-list .complete-btn {
+    background-image: url("../img/complete.png");
+}
+
+.add-task-box .complete-btn:hover,
+.list-box .task-list .complete-btn:hover {
+    background-image: url("../img/complete_hover.png");
+}
+
+.list-box .remove-complete-btn {
+    background-image: url("../img/cancel.png");
+    float: left;
+    margin-left: 0;
+    margin-right: 10px;
+}
+
+
+/* Kolory */
+/*
+#8482C0
+#535099
+#333079
+#161454
+#07052C
+*/

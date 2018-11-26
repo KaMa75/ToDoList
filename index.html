@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pl-PL">
+<head>
+    <meta charset="UTF-8">
+    <title>To-Do List</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,900" rel="stylesheet"> 
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="wrapper">
+            <div class="add-task-btn btn">
+                <div class="add-btn"></div>
+                <p>
+                    Add Task
+                </p>
+            </div>
+            <h1>To-Do List</h1>
+        </div>
+    </header>
+
+    <section class="add-task-box wrapper clear">
+        <div class="content-box">
+            <textarea class="task-input" placeholder="Place your task here (max. 100 chracters)." maxlength="100"></textarea>
+        </div>
+        <div class="btns-box">            
+            <select placeholder="Place your task priority (1-10)">
+                <option value="">
+                    -- Choose priority --
+                </option>
+                <option value="very-high-priority">
+                    <p>Very high priority</p>
+                </option>
+                <option value="high-priority">
+                    <p>High priority</p>
+                </option>
+                <option value="normal-priority">
+                    <p>Normal priority</p>
+                </option>
+                <option value="low-priority">
+                    <p>Low priority</p>
+                </option>
+                <option value="very-low-priority">
+                    <p>Very low priority</p>
+                </option>
+            </select>
+            <div class="complete-btn btn"></div>
+            <div class="delete-btn btn"></div>
+        </div>       
+    </section>
+
+    <section class="list-box wrapper">
+        <div class="task-to-finish">
+            <div>
+                <h3>Tasks to finish: <span class="number-of-tasks"></span></h3>
+                <hr>
+            </div>            
+            <h3 class="hidden">You do not have any tasks to do.</h3>
+        </div>
+        
+        <ul class="task-list">
+            <li data-priority="5">
+                <div class="clear">
+                    <div class="task-priority very-high-priority">
+                    </div>
+                    <p>Task 1</p>                    
+                    <div class="complete-btn btn"></div>
+                    <div class="delete-btn btn"></div>                    
+                </div>
+                <hr>
+            </li>
+            <li data-priority="4">
+                <div class="clear">
+                    <div class="task-priority high-priority">
+                    </div>
+                    <p>Task 1</p>
+                    <div class="complete-btn btn"></div>
+                    <div class="delete-btn btn"></div>
+                </div>
+                <hr>
+            </li>
+            <li  data-priority="3" class="done">
+                <div class="clear">
+                    <div class="task-priority normal-priority">
+                    </div>
+                    <p>Task 2</p>
+                    <div class="complete-btn btn"></div>
+                    <div class="delete-btn btn"></div>                    
+                </div>
+                <hr>
+            </li>        
+            <li data-priority="2" class="done">
+                <div class="clear">
+                    <div class="task-priority low-priority">
+                    </div>
+                    <p>Task 2 asdfvasc asdc asdfcds dflkvjbn sd dszjfvh sa; ;ksdjh;fdk v;ldfskjv ;dskifvju ds'oisdujf oisd oisdfj voisdjv sopidfjv 'sdivpoju sdivpojud fv</p>
+                    <div class="complete-btn btn"></div>
+                    <div class="delete-btn btn"></div>                    
+                </div>
+                <hr>
+            </li>        
+            <li data-priority="1" class="done">
+                <div class="clear">
+                    <div class="task-priority very-low-priority">
+                    </div>
+                    <p>Task 2</p>                    
+                    <div class="complete-btn btn"></div>
+                    <div class="delete-btn btn"></div>
+                </div>
+                <hr>
+            </li>
+        </ul>
+        <div class="clear">
+            <div class="remove-complete-btn btn">
+            </div>
+            <p>
+                Remove finished tasks
+            </p>
+        </div>       
+    </section>
+
+<!-- <script src="js/app.js"></script> -->
+</body>
+</html>
