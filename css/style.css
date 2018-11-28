@@ -104,7 +104,7 @@ header p {
 }
 
 /* Create a custom radio button */
-.add-task-box .checkmark {
+.checkmark {
     position: absolute;
     top: 0;
     left: 0;
@@ -115,58 +115,62 @@ header p {
 }
 
 /* On mouse-over, add background color */
-.add-task-box .vhigh:hover input ~ .checkmark {
+.vhigh:hover input ~ .checkmark {
     background-color: #9B2E4F;
 }
 
-.add-task-box .high:hover input ~ .checkmark {
+.high:hover input ~ .checkmark {
     background-color: #333079;
 }
 
-.add-task-box .normal:hover input ~ .checkmark {
+.normal:hover input ~ .checkmark {
     background-color: #5F9A2E;
 }
 
-.add-task-box .low:hover input ~ .checkmark {
+.low:hover input ~ .checkmark {
     background-color: #AD9033;
 }
 
-.add-task-box .vlow:hover input ~ .checkmark {
+.vlow:hover input ~ .checkmark {
     background-color: #b0b0b0;
 }
 
-/* When the radio button is checked, add a blue background */
-.add-task-box .vhigh input:checked ~ .checkmark {
+/* When the radio button is checked, add a background */
+.vhigh .checkmark {
     background-color: rgba(155, 46, 79, 0.15);
 }
 
-.add-task-box .high input:checked ~ .checkmark {
+.high .checkmark {
     background-color: rgba(51, 48, 121, 0.15);
 }
 
-.add-task-box .normal input:checked ~ .checkmark {
+.vlow .checkmark {
     background-color: rgba(95, 154, 46, 0.15);
 }
 
-.add-task-box .low input:checked ~ .checkmark {
+.low .checkmark {
     background-color: rgba(173, 144, 51, 0.15);
 }
 
-.add-task-box .vlow input:checked ~ .checkmark {
+.vlow .checkmark {
     background-color: rgba(176, 176, 176, 0.15);
 }
 
 /* Create the indicator (hidden when not checked) */
-.add-task-box .checkmark:after {
+.show-checkmark:after {
     content: "";
     position: absolute;
-    display: none;
+    /* display: none; */
 }
 
-/* Show the indicator when checked */
-.add-task-box input:checked ~ .checkmark:after {
+/* Show the indicator when checked - toggled in JS*/
+/* .show-checkmark:after {
     display: block;
-}
+} */
+
+/* .add-task-box input:checked ~ .checkmark:after {
+    display: block;
+} */
 
 /* Style the indicator (dot/circle) */
 .add-task-box .checkmark:after {
