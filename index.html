@@ -50,85 +50,46 @@
             <p>
                 <span class="info">
                     Enter the content of the task, select its priority and accept.
-                </span>                
+                </span>
             </p>
             <div>
-                <textarea class="task-input" placeholder="Place your task here (max. 100 chracters)." maxlength="100"></textarea>   
+                <textarea class="task-input" placeholder="Place your task here (max. 100 characters)." maxlength="100"></textarea>
             </div>
-            <div class="btns-box">
+            <div class="btns-box clear">
+                <div class="msg-field hidden">
+                    <p>
+                        <span class="char-counter"></span> characters left.
+                    </p>
+                </div>
+                <div class="warning-field hidden">
+                    <p>
+                        Enter the content of the task.
+                    </p>
+                </div>
                 <div class="complete-btn btn"></div>
                 <div class="delete-btn btn"></div>
-            </div> 
-        </div>              
+            </div>
+        </div>
     </section>
 
     <section class="list-box wrapper">
         <div class="task-to-finish">
-            <div>
+            <div class="to-finish-msg hidden">
                 <h3>Tasks to finish: <span class="number-of-tasks"></span></h3>
-                <hr>
-            </div>            
-            <h3 class="hidden">You do not have any tasks to do.</h3>
+            </div>
+            <div class="no-task-msg">
+                <h3>You do not have any tasks to do.</h3>
+            </div>
+            <hr class="hidden">
         </div>
         
-        <ul class="task-list">
-            <li data-priority="5">
-                <div class="clear">
-                    <div class="task-priority very-high-priority">
-                    </div>
-                    <p>Task 1</p>                    
-                    <div class="complete-btn btn"></div>
-                    <div class="delete-btn btn"></div>
-                    <div class="edit-btn btn"></div>
-                </div>
-                <hr>
-            </li>
-            <li data-priority="4">
-                <div class="clear">
-                    <div class="task-priority high-priority">
-                    </div>
-                    <p>Task 1</p>
-                    <div class="complete-btn btn"></div>
-                    <div class="delete-btn btn"></div>
-                    <div class="edit-btn btn"></div>
-                </div>
-                <hr>
-            </li>
-            <li  data-priority="3" class="done">
-                <div class="clear">
-                    <div class="task-priority normal-priority">
-                    </div>
-                    <p>Task 2</p>                    
-                    <div class="complete-btn btn"></div>
-                    <div class="delete-btn btn"></div>
-                    <div class="edit-btn btn"></div>
-                </div>
-                <hr>
-            </li>        
-            <li data-priority="2" class="done">
-                <div class="clear">
-                    <div class="task-priority low-priority">
-                    </div>
-                    <p>Task 2 asdfvasc asdc asdfcds dflkvjbn sd dszjfvh sa; ;ksdjh;fdk v;ldfskjv ;dskifvju ds'oisdujf oisd oisdfj voisdjv sopidfjv 'sdivpoju sdivpojud fv</p>       
-                    <div class="complete-btn btn"></div>
-                    <div class="delete-btn btn"></div>
-                    <div class="edit-btn btn"></div>
-                </div>
-                <hr>
-            </li>        
-            <li data-priority="1" class="done">
-                <div class="clear">
-                    <div class="task-priority very-low-priority">
-                    </div>
-                    <p>Task 2</p>                    
-                    <div class="complete-btn btn"></div>
-                    <div class="delete-btn btn"></div>
-                    <div class="edit-btn btn"></div>
-                </div>
-                <hr>
-            </li>
-        </ul>
-        <div class="clear">
+        <div class="task-list-box">
+            <ul class="task-list">
+                <!-- Generated Task List -->
+            </ul>
+        </div>            
+
+        <div class="remove-complete-box hidden clear">
             <div class="remove-complete-btn btn">
             </div>
             <p>
@@ -136,6 +97,24 @@
             </p>
         </div>       
     </section>
+
+<!-- Default task list element -->
+
+    <div class="to-clone hidden">
+        <li data-priority>
+            <div class="clear">
+                <div class="task-priority">
+                </div>
+                <p class="task-content"></p>
+                <div class="complete-btn btn"></div>
+                <div class="delete-btn btn"></div>
+                <div class="edit-btn btn"></div>
+            </div>
+            <hr>
+        </li>
+    </div>    
+
+<!-- ------------ -->
 
 <script src="js/app.js"></script>
 </body>

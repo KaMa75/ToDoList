@@ -163,15 +163,6 @@ header p {
     /* display: none; */
 }
 
-/* Show the indicator when checked - toggled in JS*/
-/* .show-checkmark:after {
-    display: block;
-} */
-
-/* .add-task-box input:checked ~ .checkmark:after {
-    display: block;
-} */
-
 /* Style the indicator (dot/circle) */
 .add-task-box .checkmark:after {
     height: 17px;
@@ -224,6 +215,15 @@ header p {
 
 .add-task-box .content-box .btns-box {
     margin-top: 10px;
+}
+
+.add-task-box .btns-box .msg-field,
+.add-task-box .btns-box .warning-field {
+    float: left;
+}
+
+.add-task-box .btns-box .warning-field {
+    color: #c93636;
 }
 
 .add-task-box .content-box .btns-box .btn {
@@ -296,7 +296,7 @@ section {
     background-color: rgba(176, 176, 176, 0.15);
 }
 
-.done {
+.done p {
     color: #31af91;
 }
 
@@ -327,7 +327,7 @@ section {
 
 .add-task-box .delete-btn:hover,
 .list-box .task-list .delete-btn:hover,
-.list-box .remove-complete-btn:hover {
+.list-box .remove-complete-box:hover  .remove-complete-btn{
     background-image: url("../img/cancel_hover.png");
 }
 
@@ -348,3 +348,6 @@ section {
     margin-right: 10px;
 }
 
+.remove-complete-box {
+    cursor: pointer;
+}
