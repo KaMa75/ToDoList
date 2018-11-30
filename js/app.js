@@ -81,8 +81,6 @@ function countTasks(){
     }).length;
     var canceledTasksNumber = taskList.querySelectorAll('.hidden').length;
     var allTasksNumber = Array.from(taskList.children).length;
-    // return Array.from(taskList.children).length;
-    // console.log(toDoTasks);
     return {
         toDo: toDoTasksNumber,
         noCancelled: allTasksNumber - canceledTasksNumber
@@ -155,6 +153,30 @@ function findCompleteTasks(){
     return taskList.querySelectorAll('.done');
 }
 
+function readTask(task){
+    return {
+        priority: task.parentElement.parentElement.dataset.priority,
+        task: task.parentElement.parentElement.querySelector('p').innerText
+    }
+}
+
+function setAddTaskBox(taskToEdit){
+    textAreaTaskContent.value = taskToEdit.task;
+    var currentRadioBtn;
+    if(taskToEdit.priority == 5){
+        currentRadioBtn = radioBtnsBox.querySelector('.vhigh');
+    } else if(taskToEdit.priority == 4){
+        currentRadioBtn = radioBtnsBox.querySelector('.high');
+    } else if(taskToEdit.priority == 3){
+        currentRadioBtn = radioBtnsBox.querySelector('.normal');
+    } else if(taskToEdit.priority == 2){
+        currentRadioBtn = radioBtnsBox.querySelector('.low');
+    } else if(taskToEdit.priority == 1){
+        currentRadioBtn = radioBtnsBox.querySelector('.vlow');
+    }
+    setRadioBtn(currentRadioBtn);
+}
+
 
 
 // 'Add Task' button event
@@ -162,6 +184,7 @@ function findCompleteTasks(){
 function showAddTaskBox(){
     removeClass(addTaskBox, 'hidden');
 }
+
 addTaskBtn.addEventListener('click', showAddTaskBox);
 
 // 'Radio' buttons event
@@ -270,7 +293,11 @@ taskList.addEventListener('click', function(event){
         addClass(currentBtn.parentElement.parentElement, 'hidden');
         setFields();
     } else if(currentBtn.classList.contains('edit-btn')){
-        console.log('edycja');
+        var taskForEdit = readTask(currentBtn);
+        setAddTaskBox(taskForEdit);
+        console.log(taskForEdit);
+        showAddTaskBox();
+        
         // otwieranie edycji zadania
     }    
 });
