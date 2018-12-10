@@ -1,0 +1,25 @@
+{
+  "name": "todolist",
+  "version": "1.0.0",
+  "description": "Lista zadan do wykonania",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KaMa75/ToDoList.git"
+  },
+  "author": "KM",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KaMa75/ToDoList/issues"
+  },
+  "homepage": "https://github.com/KaMa75/ToDoList#readme",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-jshint": "^2.1.0",
+    "gulp-sass": "^4.0.2",
+    "jshint": "^2.9.6"
+  }
+}

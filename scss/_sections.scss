@@ -1,0 +1,266 @@
+
+%veryHighCircle{
+    border: 4px solid $vhighPriorityColor;    
+    background-color: rgba($vhighPriorityColor, 0.15);
+}
+
+%highCircle{
+    border: 4px solid $highPriorityColor;    
+    background-color: rgba($highPriorityColor, 0.15);
+}
+
+%normalCircle {
+    border: 4px solid $normalPriorityColor;    
+    background-color: rgba($normalPriorityColor, 0.15);
+}
+
+%lowCircle {
+    border: 4px solid $lowPriorityColor;    
+    background-color: rgba($lowPriorityColor, 0.15);
+}
+
+%veryLowCircle {
+    border: 4px solid $vlowPriorityColor;    
+    background-color: rgba($vlowPriorityColor, 0.15);
+}
+
+%veryHighWheel{
+    background-color: $vhighPriorityColor;
+}
+
+%highWheel{
+    background-color: $highPriorityColor;
+}
+
+%normalWheel {
+    background-color: $normalPriorityColor;
+}
+
+%lowWheel {
+    background-color: $lowPriorityColor;
+}
+
+%veryLowWheel {
+    background-color: $vlowPriorityColor;
+}
+
+/* ------------ Add-task-box section ------------ */
+
+.add-task-box {
+    border-left: 2px solid $mainColor;
+    border-right: 2px solid $mainColor;
+    color: $fontColor;
+}
+
+
+.radio-btns {
+    width: 20%;
+    float: left;
+
+    > p {
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+
+    .radio-btn {
+        font-weight: 600;
+        margin-bottom: 10px;
+        cursor: pointer;
+        font-size: 0.8em;
+        display: flex;
+    }
+
+    .indicator {
+        height: 17px;
+        width: 17px;
+        background-color: rgba($lightColor, 0.35);
+        border-radius: 50%;
+        margin-right: 5px;
+    }
+}
+
+.vhigh{
+   &:hover .indicator {
+        @extend %veryHighWheel;
+    }
+    .show-indicator {
+        @extend %veryHighCircle;
+    }
+}
+
+.high {
+    &:hover .indicator {
+        @extend %highWheel;
+    }
+    .show-indicator {
+        @extend %highCircle;
+    }
+}
+
+.normal {
+    &:hover .indicator {
+        @extend %normalWheel;
+    }
+    .show-indicator {
+        @extend %normalCircle;
+    }
+}
+
+.low {
+    &:hover .indicator {
+        @extend %lowWheel;
+    }
+    .show-indicator {
+        @extend %lowCircle;
+    }
+}
+
+.vlow {
+    &:hover .indicator {
+        @extend %veryLowWheel;
+    }
+    .show-indicator {
+        @extend %veryLowCircle;
+    }
+}
+
+.content-box {
+    width: 80%;
+    float: left;
+    margin-top: 5px;
+    p {
+        margin-bottom: 10px;
+        font-size: 0.8em;
+    }
+    textarea {
+        font-size: 1em;
+        width: 100%;
+        border: 1px solid rgba($lightColor, 0.35);    
+        outline-color: $mainColor;
+        padding: 10px;
+        color: $fontColor;
+        display: block;
+        resize: none;
+    }
+}
+
+.btns-box {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    .warning-field {
+        color: $warnColor;
+    }
+    .btns {
+        display: flex;
+    }
+    .btn {
+        width: 32px;
+        height: 32px;
+    }
+    .complete-btn {
+        @extend %completeBtn;
+    }
+    .delete-btn {
+        @extend %delBtn;
+    }
+}
+
+/* ------------ List-box section ------------ */
+
+.list-box {
+    color: $fontColor;
+    border: 2px solid $mainColor;
+    border-radius: 0 0 15px 15px;
+    .remove-complete-btn {
+        background-image: url("../img/cancel.png");
+        float: left;
+        margin-left: 0;
+        margin-right: 10px;
+    }
+    .remove-complete-box:hover .remove-complete-btn{
+        background-image: url("../img/cancel_hover.png");
+    }
+    .remove-complete-box {
+        cursor: pointer;
+    }
+}
+
+.task-list {
+    list-style: none;
+    li {
+        width: 100%;
+        &:last-of-type hr {
+            border: 1px solid $mainColor;
+        }
+        p {
+            max-width: 476px;
+            float: left;
+        }
+    }
+    hr {
+        border: 1px solid rgba($lightColor, 0.35);
+    }
+    .edit-btn {
+        @extend %editBtn;
+        float: right;
+    }
+    .delete-btn {
+        @extend %delBtn;
+        float: right;
+    }
+    .complete-btn {
+        @extend %completeBtn;
+        float: right;
+    }
+}
+
+.task-priority {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%; 
+    margin-right: 10px;
+    float: left;
+}
+
+.very-high-priority{
+    @extend %veryHighCircle;
+}
+
+.high-priority{
+   @extend %highCircle;
+}
+
+.normal-priority {
+    @extend %normalCircle;
+}
+
+.low-priority {
+    @extend %lowCircle;
+}
+
+.very-low-priority {
+    @extend %veryLowCircle;
+}
+
+.done {
+    .very-high-priority{
+        @extend %veryHighWheel;
+    }
+    
+    .high-priority{
+       @extend %highWheel;
+    }
+    
+    .normal-priority {
+        @extend %normalWheel;
+    }
+    
+    .low-priority {
+        @extend %lowWheel;
+    }
+    
+    .very-low-priority {
+        @extend %veryLowWheel;
+    }
+}

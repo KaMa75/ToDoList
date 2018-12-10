@@ -1,0 +1,65 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Lato', 'Arial', sans-serif;
+}
+
+.box {
+    margin: 0 auto;
+    width: 640px;
+    padding: 20px;
+}
+
+.clear{
+    &::after {
+        content: "";
+        display: block;
+        clear: both;
+    }
+}
+
+hr {
+    border: 1px solid $mainColor;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.hidden {
+    display: none;
+}
+
+.btn {
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    margin-left: 10px;
+}
+
+.done p {
+    color: $doneColor;
+}
+
+%editBtn {
+    background-image: url("../img/edit.png");
+    &:hover {
+        background-image: url("../img/edit_hover.png");
+    }
+}
+
+%delBtn {
+    background-image: url("../img/cancel.png");
+    &:hover {
+        background-image: url("../img/cancel_hover.png");
+    }
+}
+
+%completeBtn {
+    background-image: url("../img/complete.png");
+    &:hover {
+        background-image: url("../img/complete_hover.png");
+    }
+}

@@ -1,0 +1,30 @@
+.header {
+    background-color: $mainColor;
+    color: white;
+    border-radius: 15px 15px 0 0;
+    margin-top: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    p {
+        font-size: 1.2em;
+    }
+
+    .add-task-btn {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        .add-btn {
+            width: 30px;
+            height: 30px;
+            background-image: url("../img/plus_blue.png");
+            background-repeat: no-repeat;
+            background-position: center; 
+            margin-right: 10px;
+        }
+        &:hover .add-btn {
+            background-image: url("../img/plus.png");
+        }
+    }
+}

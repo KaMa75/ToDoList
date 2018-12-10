@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <title>To-Do List</title>
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,900" rel="stylesheet"> 
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
     <header>
-        <div class="wrapper">
-            <div class="add-task-btn btn">
+        <div class="header box">
+            <div class="add-task-btn">
                 <div class="add-btn"></div>
                 <p>
                     Add Task
@@ -19,31 +19,42 @@
         </div>
     </header>
 
-    <section class="add-task-box wrapper clear hidden">
+    <section class="add-task-box box hidden clear ">
+
         <div class="radio-btns">
             <p>
                 Priority:
             </p>
-            <label class="radio-label vhigh" data-priority="5">Very high
-                <input type="radio" name="set-priority">
-                <span class="checkmark"></span>
-            </label>
-            <label class="radio-label high" data-priority="4">High
-                <input type="radio" name="set-priority">
-                <span class="checkmark"></span>
-            </label>
-            <label class="radio-label normal" data-priority="3">Normal
-                <input type="radio" name="set-priority" checked>
-                <span class="checkmark show-checkmark"></span>
-            </label>
-            <label class="radio-label low" data-priority="2">Low
-                <input type="radio" name="set-priority">
-                <span class="checkmark"></span>
-            </label>
-            <label class="radio-label vlow" data-priority="1">Very low
-                <input type="radio" name="set-priority">
-                <span class="checkmark"></span>
-            </label>
+            <div class="radio-btn vhigh" data-priority="5">
+                <span class="indicator"></span>
+                <p>
+                    Very high
+                </p>              
+            </div>
+            <div class="radio-btn high" data-priority="4">
+                <span class="indicator"></span>
+                <p>
+                    High
+                </p>
+            </div>
+            <div class="radio-btn normal" data-priority="3">
+                <span class="indicator show-indicator"></span>
+                <p>
+                    Normal
+                </p>
+            </div>
+            <div class="radio-btn low" data-priority="2">
+                <span class="indicator"></span>
+                <p>
+                    Low
+                </p>
+            </div>
+            <div class="radio-btn vlow" data-priority="1">
+                <span class="indicator"></span>
+                <p>
+                    Very low
+                </p>
+            </div>
         </div>
         
         <div class="content-box">
@@ -55,24 +66,28 @@
             <div>
                 <textarea class="task-input" placeholder="Place your task here (max. 100 characters)." maxlength="100"></textarea>
             </div>
-            <div class="btns-box clear">
-                <div class="msg-field hidden">
-                    <p>
-                        <span class="char-counter"></span> characters left.
-                    </p>
+            <div class="btns-box">
+                <div>
+                    <div class="msg-field hidden">
+                        <p>
+                            <span class="char-counter"></span> characters left.
+                        </p>
+                    </div>
+                    <div class="warning-field hidden">
+                        <p>
+                            Enter the content of the task.
+                        </p>
+                    </div>
                 </div>
-                <div class="warning-field hidden">
-                    <p>
-                        Enter the content of the task.
-                    </p>
-                </div>
-                <div class="complete-btn btn"></div>
-                <div class="delete-btn btn"></div>
+                <div class="btns">
+                    <div class="delete-btn btn"></div>
+                    <div class="complete-btn btn"></div>
+                </div>                
             </div>
         </div>
     </section>
 
-    <section class="list-box wrapper">
+    <section class="list-box box">
         <div class="task-to-finish">
             <div class="to-finish-msg hidden">
                 <h3>Tasks to finish: <span class="number-of-tasks"></span></h3>
@@ -87,7 +102,7 @@
             <ul class="task-list">
                 <!-- Generated Task List -->
             </ul>
-        </div>            
+        </div>
 
         <div class="remove-complete-box hidden clear">
             <div class="remove-complete-btn btn">
@@ -95,7 +110,7 @@
             <p>
                 Remove finished tasks
             </p>
-        </div>       
+        </div>
     </section>
 
 <!-- Default task list element -->
@@ -116,6 +131,6 @@
 
 <!-- ------------ -->
 
-<script src="js/app.js"></script>
+<!-- <script src="js/app.js"></script> -->
 </body>
 </html>
