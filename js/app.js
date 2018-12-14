@@ -1,19 +1,20 @@
+// Header elements
 var addTaskBtn = document.querySelector('.add-task-btn');
 var addTaskBox = document.querySelector('.add-task-box');
-// Add Task Box
+// Add Task Box Elements
 var addBtn = document.querySelector('.add-task-box .complete-btn');
 var cancelBtn = document.querySelector('.add-task-box .delete-btn');
 var textAreaTaskContent = document.querySelector('.add-task-box textarea');
 var radioBtnsBox = document.querySelector('.add-task-box .radio-btns');
-var radioBtns = document.querySelectorAll('.add-task-box .radio-btns input');
-var defaultPriorityBtn = document.querySelector('.add-task-box .radio-btns .normal');
+var radioBtns = document.querySelectorAll('.radio-btns .radio-btn');
+var defaultPriorityBtn = document.querySelector('.radio-btns .normal');
 var currentPriority = defaultPriorityBtn.dataset.priority;
 var msgField = document.querySelector('.add-task-box .msg-field');
 var charCounterField = msgField.querySelector('.char-counter');
 var msgMaxLength = 100;
 var warningField = document.querySelector('.add-task-box .warning-field');
-// Task List Box
-var taskList = document.querySelector('.task-list');
+// Task List Box Elements
+var taskListBox = document.querySelector('.task-list-box');
 var taskToFinishMsg = document.querySelector('.to-finish-msg');
 var taskCounterField = taskToFinishMsg.querySelector('.number-of-tasks');
 var noTasksMsg = document.querySelector('.no-task-msg');
@@ -21,14 +22,41 @@ var hrUnderMsgs = document.querySelector('.task-to-finish hr');
 var removeCompleteTasksBox = document.querySelector('.remove-complete-box');
 var elementToClone = document.querySelector('.to-clone').firstElementChild;
 
-
+var tasks = [];
+var lastId = 0;
+var editedTaskIndex = null;
+var mode = 'add';
 
 // -------------------
+
+function saveItems(){
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+    localStorage.setItem('id', JSON.stringify(lastId));
+}
+
+function readItems(){
+    var readId = localStorage.getItem('id');
+    var readTasks = localStorage.getItem('tasks');
+    if(readId){
+        lastId = JSON.parse(readId);
+    }
+    if(readTasks){
+        tasks = JSON.parse(readTasks);
+    }
+}
 
 function addClass(element, className){
     if(!element.classList.contains(className)){
         element.classList.add(className);
     }
+}
+
+function sortTasks(){
+    tasks.sort(function(task1, task2){
+        if(task1.priority > task2.priority) {
+            return -1;
+        }
+    });
 }
 
 function removeClass(element, className){
@@ -43,17 +71,21 @@ function toggleClass(element, className){
 
 function toggleRadioButton(toEnable){
     radioBtns.forEach(function(radioBtn){
-        radioBtn.checked === false;
-        removeClass(radioBtn.nextElementSibling, 'show-checkmark');
+        removeClass(radioBtn.firstElementChild, 'show-indicator');
     });
-    toEnable.checked === true;
-    addClass(toEnable.nextElementSibling, 'show-checkmark');
+    addClass(toEnable, 'show-indicator');
 }
 
 function setDefaultTaskBox(){
     textAreaTaskContent.value = '';
-    toggleRadioButton(defaultPriorityBtn.querySelector('input'));
+    toggleRadioButton(defaultPriorityBtn.firstElementChild);
     currentPriority = setPriority(defaultPriorityBtn);
+    if(!msgField.classList.contains('hidden')){
+        addClass(msgField, 'hidden');
+    }
+    if(!warningField.classList.contains('hidden')){
+        addClass(warningField, 'hidden');
+    }
 }
 
 function setPriority(element){
@@ -61,29 +93,26 @@ function setPriority(element){
 }
 
 function setRadioBtn(currentRadioBtn){
-    if(!currentRadioBtn.lastElementChild.classList.contains('show-checkmark')){
+    if(!currentRadioBtn.firstElementChild.classList.contains('show-indicator')){
         currentPriority = setPriority(currentRadioBtn);
-        toggleRadioButton(currentRadioBtn.querySelector('input'));
+        toggleRadioButton(currentRadioBtn.firstElementChild);
     }
 }
 
 function getTask (){
     var taskContent = textAreaTaskContent.value;
-    return {
-        task: taskContent,
-        priority: currentPriority
+    var taskId;
+    if(mode === 'add') {
+        lastId++;
+        taskId = lastId;
+    } else if(mode === 'edit') {
+        taskId = tasks[editedTaskIndex].id;
     }
-}
-
-function countTasks(){
-    var toDoTasksNumber = Array.from(taskList.children).filter(function(currentTask){
-        return currentTask.className === '';
-    }).length;
-    var canceledTasksNumber = taskList.querySelectorAll('.hidden').length;
-    var allTasksNumber = Array.from(taskList.children).length;
     return {
-        toDo: toDoTasksNumber,
-        noCancelled: allTasksNumber - canceledTasksNumber
+        id: taskId,
+        content: taskContent,
+        priority: currentPriority,
+        status: 'active'
     }
 }
 
@@ -112,91 +141,152 @@ function setCounterField(counter){
     taskCounterField.innerText = counter;
 }
 
+function setFieldWithTasksCount() {
+    var numberOfActiveTasks = 0;
+    var numberOfDoneTasks = 0;
+    tasks.forEach(function(task){
+        if(task.status === 'active'){
+            numberOfActiveTasks++;
+        } else if(task.status === 'done'){
+            numberOfDoneTasks++;
+        }
+    });
+    setCounterField(numberOfActiveTasks);
+    if(numberOfActiveTasks > 0) {
+        setIfTasks();
+    } else if(numberOfDoneTasks > 0){
+        setIfNoIncompleteTasks();
+    } else {
+        setIfNoTasks();
+    }
+}
+
 function createTaskToAdd(task){
     var newTaskElement = elementToClone.cloneNode(true);
     var priorityElement = newTaskElement.querySelector('.task-priority');
     var taskContentElement = newTaskElement.querySelector('.task-content');
-    newTaskElement.dataset.priority = task.priority;
-    if(task.priority == 5){
-        addClass(priorityElement, 'very-high-priority')
-    } else if(task.priority == 4){
-        addClass(priorityElement, 'high-priority')
-    } else if(task.priority == 3){
-        addClass(priorityElement, 'normal-priority')
-    } else if(task.priority == 2){
-        addClass(priorityElement, 'low-priority')
-    } else if(task.priority == 1){
-        addClass(priorityElement, 'very-low-priority')
-    }
-    taskContentElement.innerText = task.task;
-    
+    var priorityNumbersArray = ['1', '2', '3', '4', '5'];
+    var priorityClassNamesArray = ['very-low-priority', 'low-priority', 'normal-priority', 'high-priority', 'very-high-priority'];
+    var priority = task.priority;
+    var priorityIndex = priorityNumbersArray.indexOf(priority);
+    newTaskElement.dataset.priority = priority;
+    newTaskElement.dataset.id = task.id;
+    newTaskElement.classList.add(task.status);
+    addClass(priorityElement, priorityClassNamesArray[priorityIndex]);
+    taskContentElement.innerText = task.content;
     return newTaskElement;
 }
 
-function addTaskToList(taskToAdd, nextElement){
-    if(nextElement){
-        taskList.insertBefore(taskToAdd, nextElement);
-    } else {
-        taskList.appendChild(taskToAdd);
-    }
+function showTasksList(newTasksList) {
+    var elementToDel = document.querySelector('.task-list');
+    var parElement = elementToDel.parentElement;
+    parElement.removeChild(elementToDel);
+    parElement.appendChild(newTasksList);
 }
 
-function findNextElement(priority){
-    var tasks = Array.from(taskList.children);
-    var nextElement = tasks.filter(function(task){
-        return task.dataset.priority < priority
-    })[0];
-    return nextElement;
+function buildTasksList() {
+    var newTaskList = taskListBox.firstElementChild.cloneNode();
+    tasks.forEach(function(task){
+        var taskToAdd = createTaskToAdd(task);
+        newTaskList.appendChild(taskToAdd);
+    });
+    showTasksList(newTaskList);
 }
 
-function findCompleteTasks(){
-    return taskList.querySelectorAll('.done');
+function getCurrentTask(currentBtn){
+    return currentBtn.parentElement.parentElement;
 }
 
-function readTask(task){
-    return {
-        priority: task.parentElement.parentElement.dataset.priority,
-        task: task.parentElement.parentElement.querySelector('p').innerText
-    }
+function findCurrentElementInArray(taskId) {
+    var indexInArray = null;
+    tasks.forEach(function(task, index){
+        if(task.id == taskId) {
+            indexInArray = index;
+        }
+    });
+    return indexInArray;
 }
 
-function setAddTaskBox(taskToEdit){
-    textAreaTaskContent.value = taskToEdit.task;
-    var currentRadioBtn;
-    if(taskToEdit.priority == 5){
-        currentRadioBtn = radioBtnsBox.querySelector('.vhigh');
-    } else if(taskToEdit.priority == 4){
-        currentRadioBtn = radioBtnsBox.querySelector('.high');
-    } else if(taskToEdit.priority == 3){
-        currentRadioBtn = radioBtnsBox.querySelector('.normal');
-    } else if(taskToEdit.priority == 2){
-        currentRadioBtn = radioBtnsBox.querySelector('.low');
-    } else if(taskToEdit.priority == 1){
-        currentRadioBtn = radioBtnsBox.querySelector('.vlow');
-    }
-    setRadioBtn(currentRadioBtn);
+function modifyTaskInArray(indexInArray) {
+    if(tasks[indexInArray].status === 'active'){
+        tasks[indexInArray].status = 'done';
+    } else if(tasks[indexInArray].status === 'done'){
+        tasks[indexInArray].status = 'active';
+    }    
 }
 
+function deleteTaskFromArray(indexInArray) {
+    tasks.splice(indexInArray, 1);
+}
 
+function setTaskToDone(currentTask) {
+    var indexInArr = findCurrentElementInArray(currentTask.dataset.id);
+    modifyTaskInArray(indexInArr);
+    toggleClass(currentTask, 'done');
+    saveItems();
+}
+
+function deleteTask(currentTask) {
+    var indexInArr = findCurrentElementInArray(currentTask.dataset.id);
+    deleteTaskFromArray(indexInArr);
+    currentTask.parentElement.removeChild(currentTask);
+    saveItems();
+}
+
+function findPriorityElementInAddTaskBox(priority){
+    var priorityElement = null;
+    radioBtns.forEach(function(radioBtn){
+        if(radioBtn.dataset.priority === priority){
+            priorityElement = radioBtn;
+        }
+    });
+    return priorityElement;
+}
+
+function editTask(currentTask){
+    editedTaskIndex = findCurrentElementInArray(currentTask.dataset.id);
+    var editedTaskContent = tasks[editedTaskIndex].content;
+    var currentPriority = tasks[editedTaskIndex].priority;
+    var priorityElement = findPriorityElementInAddTaskBox(currentPriority);
+    setRadioBtn(priorityElement);
+    textAreaTaskContent.value = editedTaskContent;
+    countCharacters();
+    removeClass(addTaskBox, 'hidden');
+}
+
+function findDoneTasksInArray(){
+    var indexes = [];
+    tasks.forEach(function(task, index){
+        if(task.status === 'done'){
+            indexes.push(index);
+        }
+    });
+    return indexes;
+}
+
+// When open
+
+readItems();
+buildTasksList();
+setFieldWithTasksCount();
 
 // 'Add Task' button event
 
 function showAddTaskBox(){
     removeClass(addTaskBox, 'hidden');
+    editedTaskIndex = tasks.length;
+    mode = 'add';
 }
 
 addTaskBtn.addEventListener('click', showAddTaskBox);
 
 // 'Radio' buttons event
 
-radioBtnsBox.addEventListener('click', function(event){
-    if(event.target.classList.contains('radio-label')){
-        var currentRadioBtn = event.target;
-        setRadioBtn(currentRadioBtn);
-    } else if(event.target.classList.contains('checkmark')){
+radioBtns.forEach(function(radioBtn){
+    radioBtn.addEventListener('click', function(event){
         var currentRadioBtn = event.target.parentElement;
         setRadioBtn(currentRadioBtn);
-    }
+    });
 });
 
 // 'Cancel' button event
@@ -204,48 +294,33 @@ radioBtnsBox.addEventListener('click', function(event){
 function hideAddTaskBox(){
     addClass(addTaskBox, 'hidden');
     setDefaultTaskBox();
-    if(!msgField.classList.contains('hidden')){
-        addClass(msgField, 'hidden');
-    }
-    if(!warningField.classList.contains('hidden')){
-        addClass(warningField, 'hidden');
-    }
 }
 
 cancelBtn.addEventListener('click', hideAddTaskBox);
 
 // 'Add' button events
 
-function validTask(){    
+function validTask(){
     if(textAreaTaskContent.value === ''){
         if(!msgField.classList.contains('hidden')){
             addClass(msgField, 'hidden');
         }
-        removeClass(warningField, 'hidden');
+        if(warningField.classList.contains('hidden')){
+            removeClass(warningField, 'hidden');
+        }
     }
 }
 
-function addTask(){
-    var task = getTask();
-    if(task.task !== ''){
+function addTask(){    
+    if(textAreaTaskContent.value !== ''){
+        var task = getTask();
         addClass(addTaskBox, 'hidden');
         setDefaultTaskBox();
-        var taskToAdd = createTaskToAdd(task);
-        var numberOfTasks = countTasks().toDo;
-        // console.log(numberOfTasks);
-        if(numberOfTasks === 0){
-            addTaskToList(taskToAdd);
-        } else if(numberOfTasks > 0){
-            var nextElement = findNextElement(task.priority);
-            addTaskToList(taskToAdd, nextElement);
-        }
-        numberOfTasks++;
-        setCounterField(numberOfTasks);
-        if(numberOfTasks === 0){
-            setIfNoTasks();
-        } else if(numberOfTasks > 0){
-            setIfTasks();
-        }
+        tasks[editedTaskIndex] = task;
+        sortTasks();
+        saveItems();
+        buildTasksList();
+        setFieldWithTasksCount();
     } 
 }
 
@@ -261,58 +336,43 @@ function countCharacters(){
     if(!warningField.classList.contains('hidden')){
         addClass(warningField, 'hidden');
     }
-    removeClass(msgField, 'hidden');
+    if(msgField.classList.contains('hidden')){
+        removeClass(msgField, 'hidden');
+    }
 }
 
 textAreaTaskContent.addEventListener('input', countCharacters);
 
-// tasks buttons event
+// tasks buttons events
 
-function setFields(){
-    var numberOfTasks = countTasks().toDo;
-    var noCancelledTasks = countTasks().noCancelled;
-    setCounterField(numberOfTasks);
-    console.log(numberOfTasks, noCancelledTasks);
-    if(noCancelledTasks === 0){
-        setIfNoTasks();
-    } else if(numberOfTasks === 0){
-        setIfNoIncompleteTasks();
-    } else if(numberOfTasks > 0){
-        setIfTasks();
-    }
-}
-
-taskList.addEventListener('click', function(event){
+taskListBox.addEventListener('click', function(event){
     var currentBtn = event.target;
-    console.log(currentBtn);
+    var currentTask = getCurrentTask(currentBtn);
     if(currentBtn.classList.contains('complete-btn')){
-        toggleClass(currentBtn.parentElement.parentElement, 'done');        
-        setFields();
-        // wypełnić kółko priorytetu jak zadanie oznaczone jako zrobione
+        setTaskToDone(currentTask);
+        setFieldWithTasksCount();
     } else if(currentBtn.classList.contains('delete-btn')){
-        addClass(currentBtn.parentElement.parentElement, 'hidden');
-        setFields();
+        deleteTask(currentTask);
+        setFieldWithTasksCount();
     } else if(currentBtn.classList.contains('edit-btn')){
-        var taskForEdit = readTask(currentBtn);
-        setAddTaskBox(taskForEdit);
-        console.log(taskForEdit);
-        showAddTaskBox();
-        
-        // otwieranie edycji zadania
+        mode = 'edit';
+        editTask(currentTask);
     }    
 });
 
 // 'remove complete' btn event
 
 function removeCompleteTasks(){
-    var completeTasks = findCompleteTasks();
-    completeTasks.forEach(function(completeTask){
-        addClass(completeTask, 'hidden');
+    var indexesWithDoneTasks = findDoneTasksInArray();
+    indexesWithDoneTasks.sort(function(a, b){
+        return b - a;
     });
-    setFields();
+    indexesWithDoneTasks.forEach(function(taskIndex){
+        deleteTaskFromArray(taskIndex);
+    });
+    saveItems();
+    buildTasksList();
+    setFieldWithTasksCount();    
 }
 
 removeCompleteTasksBox.addEventListener('click', removeCompleteTasks);
-
-
-// Dopisać pokazywanie wykonanych zadań
