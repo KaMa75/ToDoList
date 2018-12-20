@@ -325,6 +325,7 @@ function addTask(){
 }
 
 addBtn.addEventListener('mouseover', validTask);
+addBtn.addEventListener('touchstart', validTask);
 addBtn.addEventListener('click', addTask);
 
 // 'TextField' event

@@ -1,3 +1,5 @@
+$mobileMedia: 'only screen and (max-width: 690px), handheld, (orientation: portrait), (pointer: coarse), (hover: none), (-moz-touch-enabled: 1)';
+
 * {
     margin: 0;
     padding: 0;
@@ -5,10 +7,20 @@
     font-family: 'Lato', 'Arial', sans-serif;
 }
 
+body {
+    padding: 0 25px;
+    @media #{$mobileMedia} {
+        padding: 0 10px;
+    }
+}
+
 .box {
     margin: 0 auto;
     width: 640px;
     padding: 20px;
+    @media #{$mobileMedia} {
+        width: 100%;
+    }
 }
 
 .clear{
@@ -37,6 +49,11 @@ hr {
     background-position: center;
     background-size: contain;
     margin-left: 10px;
+    @media #{$mobileMedia} {
+        margin-top: 8px;
+        width: 30px;
+        height: 30px;
+    }
 }
 
 .done p {

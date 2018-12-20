@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>To-Do List</title>
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,900" rel="stylesheet"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,900" rel="stylesheet">
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
@@ -19,42 +20,48 @@
         </div>
     </header>
 
-    <section class="add-task-box box hidden clear ">
+    <section class="add-task-box box hidden clear">
 
         <div class="radio-btns">
             <p>
-                Priority:
+                Set priority:
             </p>
-            <div class="radio-btn vhigh" data-priority="5">
-                <span class="indicator"></span>
-                <p>
-                    Very high
-                </p>              
-            </div>
-            <div class="radio-btn high" data-priority="4">
-                <span class="indicator"></span>
-                <p>
-                    High
-                </p>
-            </div>
-            <div class="radio-btn normal" data-priority="3">
-                <span class="indicator show-indicator"></span>
-                <p>
-                    Normal
-                </p>
-            </div>
-            <div class="radio-btn low" data-priority="2">
-                <span class="indicator"></span>
-                <p>
-                    Low
-                </p>
-            </div>
-            <div class="radio-btn vlow" data-priority="1">
-                <span class="indicator"></span>
-                <p>
-                    Very low
-                </p>
-            </div>
+            <div class="row-btns-wrapper">
+                <div class="row-btns">
+                    <div class="radio-btn vhigh" data-priority="5">
+                        <span class="indicator"></span>
+                        <p>
+                            Very high
+                        </p>              
+                    </div>
+                    <div class="radio-btn high" data-priority="4">
+                        <span class="indicator"></span>
+                        <p>
+                            High
+                        </p>
+                    </div>
+                    <div class="radio-btn normal" data-priority="3">
+                        <span class="indicator show-indicator"></span>
+                        <p>
+                            Normal
+                        </p>
+                    </div>    
+                </div>
+                <div class="row-btns">
+                    <div class="radio-btn low" data-priority="2">
+                        <span class="indicator"></span>
+                        <p>
+                            Low
+                        </p>
+                    </div>
+                    <div class="radio-btn vlow" data-priority="1">
+                        <span class="indicator"></span>
+                        <p>
+                            Very low
+                        </p>
+                    </div>    
+                </div>
+            </div>            
         </div>
         
         <div class="content-box">
